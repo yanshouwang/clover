@@ -1,7 +1,3 @@
-library clover;
-
-/// A Calculator.
-class Calculator {
-  /// Returns [value] plus 1.
-  int addOne(int value) => value + 1;
-}
+export 'src/base_view_model.dart';
+export 'src/stateless_view_model.dart';
+export 'src/stateful_view_model.dart';
