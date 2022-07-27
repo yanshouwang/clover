@@ -1,5 +1,6 @@
-import 'package:clover/src/base_view_model.dart';
 import 'package:flutter/widgets.dart';
+
+import 'base_view_model.dart';
 
 /// A base ViewModel used for [StatefulWidget]
 abstract class StatefulViewModel extends BaseViewModel {
