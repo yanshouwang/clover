@@ -11,29 +11,28 @@ and the Flutter guide for
 [developing packages and plugins](https://flutter.dev/developing-packages). 
 -->
 
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+Clover is an open source framework for building MVVM applications with Flutter.
 
 ## Features
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+- StatelessViewModel
+- StatefulViewModel
+- StatelessViewModelProvider
+- StatefulViewModelProvider
 
 ## Getting started
 
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
+Add clover as a dependency in your project's pubspec.yaml.
+
+``` yaml
+dependencies:
+    clover: ^x.y.z
+```
 
 ## Usage
 
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder. 
-
-```dart
-const like = 'sample';
-```
+All usages can be found in the `/example` folder.
 
 ## Additional information
 
-TODO: Tell users more about the package: where to find more information, how to 
-contribute to the package, how to file issues, what response they can expect 
-from the package authors, and more.
+More information can be found on [GitHub](https://github.com/yanshouwang/clover)
