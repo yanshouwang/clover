@@ -17,8 +17,8 @@ Clover is an open source framework for building MVVM applications with Flutter.
 
 - StatelessViewModel
 - StatefulViewModel
-- StatelessViewModelProvider
-- StatefulViewModelProvider
+- StatelessView
+- StatefulView
 
 ## Getting started
 
