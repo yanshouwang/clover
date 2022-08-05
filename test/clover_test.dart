@@ -5,58 +5,78 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
 import 'clover_test.mocks.dart';
-import 'util.dart';
 
 @GenerateMocks([StatelessViewModel, StatefulViewModel])
 void main() {
   testWidgets(
-    'StatelessViewModelProvider creates and holds an instance of StatelessViewModel',
+    'StatelessView creates and holds an instance of StatelessViewModel',
     (tester) async {
-      final widget = MockStatelessView();
-      expect(widget.viewModel, isInstanceOf<MockStatelessViewModel>());
-      expect(widget.viewModel, widget.viewModel);
+      final viewModel = MockStatelessViewModel();
+      final view = MockStatelessView(
+        builder: () => viewModel,
+      );
+      expect(view.viewModel, viewModel);
     },
   );
 
   testWidgets(
-    'StatefulViewModelProvider creates and holds an instance of StatefulViewModel',
+    'StatefulView creates and holds an instance of StatefulViewModel',
     (tester) async {
-      const widget = MockStatefulView();
-      await tester.pumpWidget(widget);
+      final viewModel = MockStatefulViewModel();
+      final view = MockStatefulView(builder: () => viewModel);
+      await tester.pumpWidget(view);
       final finder = find.byType(MockStatefulView);
       final state = tester.state<_MockStatefulViewState>(finder);
-      expect(state.viewModel, isInstanceOf<MockStatefulViewModel>());
-      expect(state.viewModel, state.viewModel);
+      expect(state.viewModel, viewModel);
     },
   );
 
   testWidgets(
     'StatefulViewModel dispose is called when state dispose',
     (tester) async {
-      final tapKey = GlobalKey();
-      final widget = VisibilityChanger(
-        tapKey: tapKey,
-        child: const MockStatefulView(),
+      final viewModel = MockStatefulViewModel();
+      final widget = Directionality(
+        textDirection: TextDirection.ltr,
+        child: Navigator(
+          onGenerateRoute: (settings) {
+            final name = settings.name;
+            if (name == '/') {
+              return PageRouteBuilder(
+                pageBuilder: (context, animation, secondaryAnimation) {
+                  return Container();
+                },
+              );
+            } else if (name == '/stateful_view') {
+              return PageRouteBuilder(
+                pageBuilder: (context, animation, secondaryAnimation) {
+                  return MockStatefulView(builder: () => viewModel);
+                },
+              );
+            } else {
+              return null;
+            }
+          },
+          initialRoute: '/stateful_view',
+        ),
       );
       await tester.pumpWidget(widget);
-      final finder = find.byType(MockStatefulView);
-      final state = tester.state<_MockStatefulViewState>(finder);
-      final tapFinder = find.byKey(tapKey);
-      await tester.tap(tapFinder);
-      await tester.pump();
-      verify(state.viewModel.dispose()).called(1);
+      final viewFinder = find.byType(MockStatefulView);
+      final state = tester.state<_MockStatefulViewState>(viewFinder);
+      expect(state.viewModel, viewModel);
+      final navigatorFinder = find.byType(Navigator);
+      final navigatorState = tester.state<NavigatorState>(navigatorFinder);
+      navigatorState.pushReplacementNamed('/');
+      await tester.pumpAndSettle();
+      verify(viewModel.dispose()).called(1);
     },
   );
 }
 
-class MockStatelessView extends StatelessWidget
-    with StatelessViewModelProvider<MockStatelessViewModel> {
-  MockStatelessView({Key? key}) : super(key: key);
-
-  @override
-  createViewModel() {
-    return MockStatelessViewModel();
-  }
+class MockStatelessView extends StatelessView<MockStatelessViewModel> {
+  MockStatelessView({
+    Key? key,
+    required ViewModelBuilder<MockStatelessViewModel> builder,
+  }) : super(key: key, builder: builder);
 
   @override
   Widget build(BuildContext context) {
@@ -64,20 +84,19 @@ class MockStatelessView extends StatelessWidget
   }
 }
 
-class MockStatefulView extends StatefulWidget {
-  const MockStatefulView({Key? key}) : super(key: key);
+class MockStatefulView extends StatefulView<MockStatefulViewModel> {
+  const MockStatefulView({
+    Key? key,
+    required ViewModelBuilder<MockStatefulViewModel> builder,
+  }) : super(key: key, builder: builder);
 
   @override
-  State<MockStatefulView> createState() => _MockStatefulViewState();
+  ViewModelState<MockStatefulView, MockStatefulViewModel> createState() =>
+      _MockStatefulViewState();
 }
 
-class _MockStatefulViewState extends State<MockStatefulView>
-    with StatefulViewModelProvider<MockStatefulView, MockStatefulViewModel> {
-  @override
-  MockStatefulViewModel createViewModel() {
-    return MockStatefulViewModel();
-  }
-
+class _MockStatefulViewState
+    extends ViewModelState<MockStatefulView, MockStatefulViewModel> {
   @override
   Widget build(BuildContext context) {
     return Container();

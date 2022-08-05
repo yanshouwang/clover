@@ -1,21 +1,17 @@
 import 'package:clover/clover.dart';
-import 'package:example/view_models.dart';
 import 'package:flutter/material.dart';
 
-class HomeView extends StatefulWidget {
-  const HomeView({Key? key}) : super(key: key);
+import '../view_models.dart';
+
+class HomeView extends StatefulView<HomeViewModel> {
+  const HomeView({Key? key, required ViewModelBuilder<HomeViewModel> builder})
+      : super(key: key, builder: builder);
 
   @override
-  State<HomeView> createState() => _HomeViewState();
+  ViewModelState<HomeView, HomeViewModel> createState() => _HomeViewState();
 }
 
-class _HomeViewState extends State<HomeView>
-    with StatefulViewModelProvider<HomeView, HomeViewModel> {
-  @override
-  HomeViewModel createViewModel() {
-    return HomeViewModel();
-  }
-
+class _HomeViewState extends ViewModelState<HomeView, HomeViewModel> {
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
