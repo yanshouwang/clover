@@ -1,17 +1,17 @@
 import 'package:clover/clover.dart';
-import 'package:flutter/material.dart';
+import 'package:example/view_model.dart';
+import 'package:flutter/material.dart' hide View;
 
-import '../view_models.dart';
-
-class HomeView extends StatefulView<HomeViewModel> {
-  const HomeView({Key? key, required ViewModelBuilder<HomeViewModel> builder})
-      : super(key: key, builder: builder);
+class HomeView extends View<HomeViewModel> {
+  const HomeView({super.key});
 
   @override
-  ViewModelState<HomeView, HomeViewModel> createState() => _HomeViewState();
+  ViewState<HomeView, HomeViewModel> createState() => _HomeViewState();
+  @override
+  HomeViewModel createViewModel() => HomeViewModel();
 }
 
-class _HomeViewState extends ViewModelState<HomeView, HomeViewModel> {
+class _HomeViewState extends ViewState<HomeView, HomeViewModel> {
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -54,7 +54,7 @@ class _HomeViewState extends ViewModelState<HomeView, HomeViewModel> {
               builder: (context, count, child) {
                 return Text(
                   '$count',
-                  style: Theme.of(context).textTheme.headline4,
+                  style: Theme.of(context).textTheme.headlineMedium,
                 );
               },
             ),
@@ -62,7 +62,7 @@ class _HomeViewState extends ViewModelState<HomeView, HomeViewModel> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: viewModel.increase,
+        onPressed: () => viewModel.increase(),
         tooltip: 'Increse',
         child: const Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'view_models.dart';
-import 'views.dart';
+import 'view.dart';
 
 void main() {
   runApp(const MyApp());
@@ -27,9 +26,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: HomeView(
-        builder: () => HomeViewModel(),
-      ),
+      home: const HomeView(),
     );
   }
 }

@@ -2,7 +2,7 @@ import 'package:clover/clover.dart';
 import 'package:flutter/foundation.dart';
 
 /// A base ViewModel used for home.
-abstract class HomeViewModel extends StatefulViewModel {
+abstract class HomeViewModel extends ViewModel {
   /// Get the title.
   String get title;
 
@@ -19,7 +19,7 @@ abstract class HomeViewModel extends StatefulViewModel {
   factory HomeViewModel() => _HomeViewModel();
 }
 
-class _HomeViewModel extends StatefulViewModel implements HomeViewModel {
+class _HomeViewModel extends ViewModel implements HomeViewModel {
   @override
   final String title;
   @override
@@ -41,7 +41,7 @@ class _HomeViewModel extends StatefulViewModel implements HomeViewModel {
 
   @override
   void dispose() {
-    count.dispose();
     super.dispose();
+    count.dispose();
   }
 }
