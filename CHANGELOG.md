@@ -1,3 +1,8 @@
+## 3.0.0
+
+- Add `InheritedViewModel` class.
+- Add `ViewModelBinding` class.
+
 ## 2.0.0
 
 - Add `createViewModel` method to View.
