@@ -1,5 +1,6 @@
 import 'package:clover/clover.dart';
-import 'package:flutter/widgets.dart' hide View;
+import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
@@ -7,27 +8,35 @@ import 'package:mockito/mockito.dart';
 import 'clover_test.mocks.dart';
 
 @GenerateNiceMocks([
-  MockSpec<MyViewModel>(),
+  MockSpec<ViewModel>(),
 ])
 void main() {
   testWidgets(
-    'View creates and holds an instance of ViewModel',
+    'Creates and holds an instance of ViewModel',
     (tester) async {
-      final viewModel = MyViewModel();
-      final widget = MyView(
-        viewModel: viewModel,
+      final widget = ViewModelBinding(
+        viewBuilder: (context) => Builder(
+          builder: (context) {
+            final viewModel = ViewModel.of<MockViewModel>(context);
+            return Directionality(
+              textDirection: TextDirection.ltr,
+              child: Text('${viewModel.runtimeType}'),
+            );
+          },
+        ),
+        viewModelBuilder: (context) => MockViewModel(),
       );
       await tester.pumpWidget(widget);
-      final viewFinder = find.byType(MyView);
-      final state = tester.state<MyViewState>(viewFinder);
-      expect(state.viewModel, viewModel);
+      final viewFinder = find.byType(Text);
+      final view = tester.widget<Text>(viewFinder);
+      expect(view.data, 'MockViewModel');
     },
   );
 
   testWidgets(
-    'ViewModel dispose is called when state dispose',
+    'ViewModel is disposed with state',
     (tester) async {
-      final viewModel = MockMyViewModel();
+      final viewModel = MockViewModel();
       final widget = Directionality(
         textDirection: TextDirection.ltr,
         child: Navigator(
@@ -36,14 +45,15 @@ void main() {
             if (name == '/') {
               return PageRouteBuilder(
                 pageBuilder: (context, animation, secondaryAnimation) {
-                  return Container();
+                  return const Placeholder();
                 },
               );
             } else if (name == '/view') {
               return PageRouteBuilder(
                 pageBuilder: (context, animation, secondaryAnimation) {
-                  return MyView(
-                    viewModel: viewModel,
+                  return ViewModelBinding(
+                    viewBuilder: (context) => const Placeholder(),
+                    viewModelBuilder: (context) => viewModel,
                   );
                 },
               );
@@ -63,26 +73,3 @@ void main() {
     },
   );
 }
-
-class MyView extends View<MyViewModel> {
-  final MyViewModel viewModel;
-
-  const MyView({
-    super.key,
-    required this.viewModel,
-  });
-
-  @override
-  ViewState<MyView, MyViewModel> createState() => MyViewState();
-  @override
-  MyViewModel createViewModel() => viewModel;
-}
-
-class MyViewState extends ViewState<MyView, MyViewModel> {
-  @override
-  Widget build(BuildContext context) {
-    return const Placeholder();
-  }
-}
-
-class MyViewModel extends ViewModel {}
