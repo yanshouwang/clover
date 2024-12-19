@@ -19,8 +19,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData.light(),
       darkTheme: ThemeData.dark(),
       home: ViewModelBinding(
-        viewBuilder: (context) => const HomeView(),
-        viewModelBuilder: (context) => HomeViewModel(),
+        viewBuilder: () => const HomeView(),
+        viewModelBuilder: () => HomeViewModel(),
       ),
     );
   }

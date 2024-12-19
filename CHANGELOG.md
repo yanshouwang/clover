@@ -1,3 +1,14 @@
+## 4.0.0
+
+- Add `ViewModel#context` field.
+- Add `ViewModel#mounted` field.
+- Add `ViewModel#didChangeDependencies` method.
+- Add `ViewModel#activate` method.
+- Add `ViewModel#deactivate` method.
+- Add `ViewModel#reassemble` method.
+- Remove `InheritedViewModel` class.
+- Remove `context` from `ViewBuilder` and `ViewModelBuilder`.
+
 ## 3.0.0
 
 - Add `InheritedViewModel` class.
