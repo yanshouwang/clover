@@ -15,7 +15,7 @@ void main() {
     'Creates and holds an instance of ViewModel',
     (tester) async {
       final widget = ViewModelBinding(
-        viewBuilder: (context) => Builder(
+        viewBuilder: () => Builder(
           builder: (context) {
             final viewModel = ViewModel.of<MockViewModel>(context);
             return Directionality(
@@ -24,7 +24,7 @@ void main() {
             );
           },
         ),
-        viewModelBuilder: (context) => MockViewModel(),
+        viewModelBuilder: () => MockViewModel(),
       );
       await tester.pumpWidget(widget);
       final viewFinder = find.byType(Text);
@@ -52,8 +52,8 @@ void main() {
               return PageRouteBuilder(
                 pageBuilder: (context, animation, secondaryAnimation) {
                   return ViewModelBinding(
-                    viewBuilder: (context) => const Placeholder(),
-                    viewModelBuilder: (context) => viewModel,
+                    viewBuilder: () => const Placeholder(),
+                    viewModelBuilder: () => viewModel,
                   );
                 },
               );

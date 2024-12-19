@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:clover/clover.dart';
 
 /// The home view model.
@@ -25,5 +27,35 @@ class HomeViewModel extends ViewModel {
   void decrease() {
     _count--;
     notifyListeners();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    log('didChangeDependencies');
+  }
+
+  @override
+  void activate() {
+    super.activate();
+    log('activate');
+  }
+
+  @override
+  void deactivate() {
+    super.deactivate();
+    log('deactivate');
+  }
+
+  @override
+  void reassemble() {
+    super.reassemble();
+    log('reassemble');
+  }
+
+  @override
+  void dispose() {
+    log('dispose');
+    super.dispose();
   }
 }

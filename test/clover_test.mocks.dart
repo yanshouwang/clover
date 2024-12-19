@@ -3,9 +3,10 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:ui' as _i3;
+import 'dart:ui' as _i4;
 
-import 'package:clover/src/view_model.dart' as _i2;
+import 'package:clover/src/view_model.dart' as _i3;
+import 'package:flutter/widgets.dart' as _i2;
 import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: type=lint
@@ -21,10 +22,49 @@ import 'package:mockito/mockito.dart' as _i1;
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
 
+class _FakeBuildContext_0 extends _i1.SmartFake implements _i2.BuildContext {
+  _FakeBuildContext_0(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
 /// A class which mocks [ViewModel].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockViewModel extends _i1.Mock implements _i2.ViewModel {
+class MockViewModel extends _i1.Mock implements _i3.ViewModel {
+  @override
+  _i2.BuildContext get context => (super.noSuchMethod(
+        Invocation.getter(#context),
+        returnValue: _FakeBuildContext_0(
+          this,
+          Invocation.getter(#context),
+        ),
+        returnValueForMissingStub: _FakeBuildContext_0(
+          this,
+          Invocation.getter(#context),
+        ),
+      ) as _i2.BuildContext);
+
+  @override
+  set context(_i2.BuildContext? value) => super.noSuchMethod(
+        Invocation.setter(
+          #context,
+          value,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  bool get mounted => (super.noSuchMethod(
+        Invocation.getter(#mounted),
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
+
   @override
   bool get hasListeners => (super.noSuchMethod(
         Invocation.getter(#hasListeners),
@@ -33,7 +73,43 @@ class MockViewModel extends _i1.Mock implements _i2.ViewModel {
       ) as bool);
 
   @override
-  void addListener(_i3.VoidCallback? listener) => super.noSuchMethod(
+  void didChangeDependencies() => super.noSuchMethod(
+        Invocation.method(
+          #didChangeDependencies,
+          [],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void activate() => super.noSuchMethod(
+        Invocation.method(
+          #activate,
+          [],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void deactivate() => super.noSuchMethod(
+        Invocation.method(
+          #deactivate,
+          [],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void reassemble() => super.noSuchMethod(
+        Invocation.method(
+          #reassemble,
+          [],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void addListener(_i4.VoidCallback? listener) => super.noSuchMethod(
         Invocation.method(
           #addListener,
           [listener],
@@ -42,7 +118,7 @@ class MockViewModel extends _i1.Mock implements _i2.ViewModel {
       );
 
   @override
-  void removeListener(_i3.VoidCallback? listener) => super.noSuchMethod(
+  void removeListener(_i4.VoidCallback? listener) => super.noSuchMethod(
         Invocation.method(
           #removeListener,
           [listener],
