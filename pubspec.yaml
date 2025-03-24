@@ -1,6 +1,6 @@
 name: clover
-description: 'Clover is an open source framework for building MVVM applications with Flutter.'
-version: 4.0.0
+description: "Clover is an open source framework for building MVVM applications with Flutter."
+version: 4.0.1
 repository: https://github.com/yanshouwang/clover
 issue_tracker: https://github.com/yanshouwang/clover/issues
 topics:
@@ -9,7 +9,7 @@ topics:
 
 environment:
   sdk: ^3.0.0
-  flutter: '>=3.0.0'
+  flutter: ">=3.0.0"
 
 dependencies:
   flutter:

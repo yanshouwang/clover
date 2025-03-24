@@ -121,6 +121,32 @@ class _ViewModelBindingState<TView extends Widget, TViewModel extends ViewModel>
   }
 }
 
+/// An inherited widget for a [ViewModel], which updates its dependencies when
+/// the [viewModel] is triggered.
+class InheritedViewModel<T extends ViewModel> extends StatelessWidget {
+  /// The view.
+  final Widget view;
+
+  /// The viewModel.
+  final T viewModel;
+
+  /// Create an inherited widget that updates its dependents when [viewModel]
+  /// sends notifications.
+  const InheritedViewModel({
+    super.key,
+    required this.view,
+    required this.viewModel,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return _InheritedViewModel<T>(
+      view: view,
+      viewModel: viewModel,
+    );
+  }
+}
+
 class _InheritedViewModel<T extends ViewModel> extends InheritedNotifier<T> {
   const _InheritedViewModel({
     super.key,

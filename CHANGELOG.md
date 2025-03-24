@@ -1,3 +1,7 @@
+## 4.0.1
+
+- Revert `InheritedViewModel` class.
+
 ## 4.0.0
 
 - Add `ViewModel#context` field.
